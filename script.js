@@ -89,4 +89,64 @@ document.addEventListener('DOMContentLoaded', () => {
     animateElements.forEach(el => {
         observer.observe(el);
     });
+
+    // --- Visual Enhancements ---
+
+    // 1. Parallax Effect for Backgrounds
+    const heroBg = document.querySelector('.hero-bg-collage');
+    const processBg = document.querySelector('#process');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+
+        // Hero parallax (moves the whole collage container down slowly)
+        if (heroBg && scrolled < window.innerHeight) {
+            heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+        }
+
+        // Process parallax 
+        if (processBg) {
+            const rect = processBg.getBoundingClientRect();
+            // Check if process section is in viewport
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                // Enhancing the fixed background with a slight subtle vertical shift
+                processBg.style.backgroundPosition = `center calc(50% + ${rect.top * 0.15}px)`;
+            }
+        }
+    });
+
+    // 2. 3D Text Tilt Effect
+    const tiltTexts = document.querySelectorAll('.tilt-text');
+
+    tiltTexts.forEach(text => {
+        text.addEventListener('mousemove', (e) => {
+            const rect = text.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element.
+            const y = e.clientY - rect.top;  // y position within the element.
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Calculate rotation percentages (max 15 degrees)
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
+
+            text.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            // Remove transition during mousemove for zero-latency tracking
+            text.style.transition = 'none';
+        });
+
+        text.addEventListener('mouseleave', () => {
+            // Reset to original position
+            text.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            // Add transition back for a smooth return
+            text.style.transition = 'transform 0.5s ease-out, text-shadow 0.5s ease-out';
+        });
+
+        text.addEventListener('mouseenter', () => {
+            // Quick catch-up transition
+            text.style.transition = 'transform 0.1s ease-out, text-shadow 0.1s ease-out';
+        });
+    });
+
 });
