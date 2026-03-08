@@ -1,22 +1,22 @@
 :root {
     --primary-color: #CF9E36;
-    /* Более богатый приглушенный желтый/золотой */
+    /* Богатый золотисто-желтый */
     --secondary-color: #263B1C;
-    /* Глубокий, богатый оливковый */
+    /* Глубокий оливковый */
     --bg-light: #F7F5EE;
-    /* Базовый светлый фон (бежевый) */
+    /* Бежевый фон */
     --bg-alt: #EBE5D9;
-    /* Дополнительный бежевый для секций */
-    --bg-dark: #050804;
-    /* Очень темный оливковый для темных блоков */
+    /* Темный бежевый */
+    --bg-dark: #15200F;
+    /* Очень темный оливковый */
     --bg-ivory: #FFFCF5;
-    /* Слоновая кость для карточек и белых блоков */
+    /* Слоновая кость для карточек */
     --text-main: #2A2A2A;
     --text-muted: #555555;
     --text-light: #F7F5EE;
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Inter', sans-serif;
-    --transition-standard: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-standard: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 * {
@@ -72,7 +72,34 @@ a {
     color: var(--text-light);
 }
 
+/* --- Section Titles --- */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    display: block;
+    font-weight: 800;
+}
+
 /* --- Navbar --- */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+    width: 100px;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -81,7 +108,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background: rgba(21, 32, 15, 0.85);
+    background: rgba(47, 59, 26, 0.85);
     /* Тёмно-оливковый с прозрачностью */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -216,7 +243,26 @@ a {
 .hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 60px;
-    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    /* Усиленный объемный effect */
+}
+
+/* 3D Tilt Text Effect */
+.tilt-text {
+    display: inline-block;
+    transition: transform 0.1s ease-out, text-shadow 0.1s ease-out;
+    transform-style: preserve-3d;
+    text-shadow:
+        1px 1px 0 var(--secondary-color),
+        2px 2px 0 var(--secondary-color),
+        3px 3px 0 var(--secondary-color),
+        4px 4px 0 var(--secondary-color),
+        5px 5px 0 var(--bg-dark),
+        6px 6px 0 var(--bg-dark),
+        10px 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.tilt-text:hover {
+    cursor: crosshair;
 }
 
 .achievements {
@@ -224,6 +270,20 @@ a {
     justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 .achievement-card {
@@ -238,12 +298,23 @@ a {
     align-items: center;
     min-width: 220px;
     transition: var(--transition-standard);
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.achievement-card:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.achievement-card:nth-child(3) {
+    animation-delay: 2s;
 }
 
 .achievement-card:hover {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(207, 158, 54, 0.3);
 }
 
 .achievement-card .number {
@@ -269,7 +340,23 @@ a {
     font-size: 2.5rem;
     margin-bottom: 40px;
     text-align: center;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+.section-title_ {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    left: 15%;
+    transform: translateX(-50%);
+}
+
+
 
 .slider-container {
     position: relative;
@@ -278,6 +365,19 @@ a {
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.section-title_::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: width 0.3s ease;
 }
 
 .slider-track {
@@ -373,17 +473,19 @@ a {
 
 .process-step {
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px 40px;
-    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 35px 50px;
+    border-radius: 20px;
     position: relative;
-    padding-left: 100px;
+    padding-left: 120px;
     transition: var(--transition-standard);
+    backdrop-filter: blur(10px);
+    color: #fff;
 }
 
 .process-step:hover {
-    background: rgba(255, 255, 255, 0.08);
     transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .step-num {
@@ -439,7 +541,7 @@ a {
     /* Тень приглушенно-желтая */
 }
 
-.guarantee-card.accent-card:hover {
+.guae-card.accent-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(233, 196, 106, 0.3);
 }
@@ -525,12 +627,15 @@ a {
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 35px;
+    border-radius: 20px;
     width: 100%;
+    color: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .glass-card h3 {
@@ -557,8 +662,8 @@ a {
 .btn-primary:hover {
     background: var(--secondary-color);
     color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(207, 158, 54, 0.5);
 }
 
 /* --- Contacts (Block 4) --- */
@@ -589,9 +694,27 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(207, 158, 54, 0));
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 10px rgba(207, 158, 54, 0.5));
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(207, 158, 54, 0));
+    }
+}
+
 .contact-card .icon {
     font-size: 40px;
     margin-bottom: 15px;
+    animation: pulseGlow 3s infinite ease-in-out;
 }
 
 .contact-card .info {
@@ -603,25 +726,38 @@ a {
 .contact-card.phone:hover {
     background: rgba(241, 196, 15, 0.2);
     border-color: var(--primary-color);
+    box-shadow: 0 15px 30px rgba(241, 196, 15, 0.2);
 }
 
 .contact-card.telegram:hover {
     background: rgba(0, 136, 204, 0.2);
     border-color: #0088cc;
+    box-shadow: 0 15px 30px rgba(0, 136, 204, 0.2);
 }
 
 .contact-card.whatsapp:hover {
     background: rgba(37, 211, 102, 0.2);
     border-color: #25D366;
+    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
 }
 
 footer {
     background: var(--bg-dark);
-    color: #fff;
     text-align: center;
     padding: 30px 20px;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer p {
+    transition: var(--transition-standard);
+    cursor: default;
+}
+
+footer p:hover {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(207, 158, 54, 0.4);
 }
 
 /* --- Responsive --- */
