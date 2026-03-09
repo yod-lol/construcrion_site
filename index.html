@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Строительство домов и коммерческих помещений под ключ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="logo">AstroBuild</div>
+        <nav>
+            <a href="#hero">Главная</a>
+            <a href="#portfolio">Примеры работ</a>
+            <a href="#process">Этапы</a>
+            <a href="#referral">Бонусы</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+        <a href="#contacts" class="cta-nav">Связаться</a>
+    </header>
+
+    <!-- Block 1: Hero Section -->
+    <section id="hero" class="hero premium-hero">
+        <div class="hero-bg-image"
+            style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop');">
+        </div>
+        <div class="hero-overlay"></div>
+        <canvas id="heroCanvas"></canvas>
+
+        <div class="container hero-container">
+            <div class="hero-layout two-columns">
+                <!-- Center Content (Now Left) -->
+                <div class="hero-content">
+                    <div class="subtitle-badge">Надежно, современно, уютно</div>
+                    <h1 class="modern-title">
+                        <span class="reveal-text">Строим</span> <em class="gelios-title">дома</em>
+                    </h1>
+                    <p class="hero-subtitle">От скромных небольших домов до просторных трехэтажных резиденций с
+                        участком.
+                        Воплощаем ваши идеи в надежных материалах под ваш бюджет, создавая современный уют.</p>
+
+                    <div class="hero-actions">
+                        <a href="#portfolio" class="btn-magnetic cta-main">
+                            <span class="btn-text">Смотреть проекты</span>
+                            <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                            <div class="btn-fill"></div>
+                        </a>
+                    </div>
+
+                    <div class="achievements modern-achievements">
+                        <div class="achievement-item">
+                            <div class="number-wrapper"><span class="number">20</span><span class="plus">+</span></div>
+                            <span class="text">лет экспертизы</span>
+                        </div>
+                        <div class="achievement-divider"></div>
+                        <div class="achievement-item">
+                            <div class="number-wrapper"><span class="number">54</span></div>
+                            <span class="text">реализованных проекта</span>
+                        </div>
+                        <div class="achievement-divider"></div>
+                        <div class="achievement-item">
+                            <div class="number-wrapper"><span class="number">100</span><span class="plus">%</span></div>
+                            <span class="text">соблюдение сроков</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Slider with Large Cards -->
+                <div class="hero-slider-side">
+                    <div class="hero-cards-scroller">
+                        <!-- Card 1 -->
+                        <div class="hero-case-card large-card">
+                            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=800"
+                                alt="Компактный дом" loading="lazy">
+                            <div class="card-info">
+                                <span class="badge">Реализован</span>
+                                <h4>Уютный дом 85м²</h4>
+                                <p>Каркас • 3 мес. • от 4.5 млн ₽</p>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="hero-case-card large-card">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800"
+                                alt="Просторный дом" loading="lazy">
+                            <div class="card-info">
+                                <span class="badge material">В работе</span>
+                                <h4>Семейный дом 150м²</h4>
+                                <p>Кирпич • 5 мес. • от 9 млн ₽</p>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="hero-case-card large-card">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800"
+                                alt="Большой дом" loading="lazy">
+                            <div class="card-info">
+                                <span class="badge">Проект</span>
+                                <h4>Резиденция 450м²</h4>
+                                <p>Монолит • 12 мес. • от 35 млн ₽</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-hint hero-hint">Листайте работы <span>→</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 2: Portfolio Slider -->
+    <section id="portfolio" class="portfolio section-padding">
+        <div class="container">
+            <h2 class="section-title">Примеры работ</h2>
+            <div class="portfolio-grid-wrapper">
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Project 1 -->
+                    <div class="portfolio-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1000"
+                                alt="Небольшой дом" loading="lazy">
+                            <div class="card-badges">
+                                <span class="badge">Популярный</span>
+                                <span class="badge material">Каркас</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Уютный компактный дом</h3>
+                            <div class="specs-grid">
+                                <div class="spec-item">
+                                    <span class="s-icon">📏</span>
+                                    <span class="s-val">85 м²</span>
+                                    <span class="s-label">Площадь</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">⏱️</span>
+                                    <span class="s-val">3 мес.</span>
+                                    <span class="s-label">Срок</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">🛏️</span>
+                                    <span class="s-val">2</span>
+                                    <span class="s-label">Спальни</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p class="price">от 4 500 000 ₽</p>
+                                <a href="#contacts" class="btn-outline">Хочу такой</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="portfolio-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000"
+                                alt="Средний дом" loading="lazy">
+                            <div class="card-badges">
+                                <span class="badge">Семейный</span>
+                                <span class="badge material">Кирпич</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Просторный загородный дом</h3>
+                            <div class="specs-grid">
+                                <div class="spec-item">
+                                    <span class="s-icon">📏</span>
+                                    <span class="s-val">150 м²</span>
+                                    <span class="s-label">Площадь</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">⏱️</span>
+                                    <span class="s-val">5 мес.</span>
+                                    <span class="s-label">Срок</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">🛏️</span>
+                                    <span class="s-val">4</span>
+                                    <span class="s-label">Спальни</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p class="price">от 9 000 000 ₽</p>
+                                <a href="#contacts" class="btn-outline">Хочу такой</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="portfolio-card">
+                        <div class="card-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000"
+                                alt="Большой дом" loading="lazy">
+                            <div class="card-badges">
+                                <span class="badge">С участком</span>
+                                <span class="badge material">Монолит</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Трехэтажная резиденция</h3>
+                            <div class="specs-grid">
+                                <div class="spec-item">
+                                    <span class="s-icon">📏</span>
+                                    <span class="s-val">450 м²</span>
+                                    <span class="s-label">Площадь</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">⏱️</span>
+                                    <span class="s-val">12 мес.</span>
+                                    <span class="s-label">Срок</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="s-icon">🚗</span>
+                                    <span class="s-val">Гараж</span>
+                                    <span class="s-label">Включен</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p class="price">от 35 000 000 ₽</p>
+                                <a href="#contacts" class="btn-outline">Хочу такой</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-hint">Листайте в сторону <span>→</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 3: Process -->
+    <section id="process" class="process section-padding dark-bg"
+        style="background-image: url('https://media.istockphoto.com/id/1272443474/photo/blurred-workers-on-a-construction-site.jpg?s=612x612&w=0&k=20&c=zOKnuvtPmQYRjg92uvsS-kBjaFZtSsk7Hv0kbXwqP_s='); background-size: cover; background-attachment: fixed; background-position: center; position: relative;">
+        <!-- Overlay to ensure text readability -->
+        <div
+            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(21, 32, 15, 0.95) 0%, rgba(10, 16, 7, 0.85) 100%); z-index: 1;">
+        </div>
+
+        <div class="container" style="position: relative; z-index: 2;">
+            <h2 class="section-title">Этапы работ</h2>
+            <p class="section-subtitle text-center">Строим реально <span class="highlight">ПОД КЛЮЧ</span>: от идеи до
+                новоселья</p>
+
+            <div class="process-timeline">
+                <!-- Step 1 -->
+                <div class="process-stage">
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800"
+                            alt="Проектирование и архитектура" loading="lazy">
+                        <div class="step-badge">Шаг 01</div>
+                    </div>
+                    <div class="stage-content">
+                        <h3>Проектирование и визуализация</h3>
+                        <p>Начинаем с идеи: создаем детальную 3D-модель вашего будущего дома. Выбираем материалы,
+                            планировку и фиксируем точную смету до копейки. Никаких сюрпризов.</p>
+                        <ul class="stage-list">
+                            <li>✓ Архитектурный план</li>
+                            <li>✓ 3D визуализация</li>
+                            <li>✓ Твердая смета</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-stage reverse">
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800"
+                            alt="Заливка фундамента" loading="lazy">
+                        <div class="step-badge">Шаг 02</div>
+                    </div>
+                    <div class="stage-content">
+                        <h3>Фундамент и коммуникации</h3>
+                        <p>Основа долголетия дома. Проводим геодезию, готовим участок, прокладываем скрытые трубы
+                            водоснабжения и заливаем плиту или ленту, подходящую для вашей почвы.</p>
+                        <ul class="stage-list">
+                            <li>✓ Геодезия грунта</li>
+                            <li>✓ Прокладка сетей под домом</li>
+                            <li>✓ Монолитный фундамент</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-stage">
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800"
+                            alt="Возведение коробки дома" loading="lazy">
+                        <div class="step-badge">Шаг 03</div>
+                    </div>
+                    <div class="stage-content">
+                        <h3>Коробка и кровля</h3>
+                        <p>Дом обретает форму. Возводим стены из теплого керамического блока, кирпича или каркаса.
+                            Устанавливаем стропильную систему, кровельное покрытие и энергосберегающие окна.</p>
+                        <ul class="stage-list">
+                            <li>✓ Возведение стен и перекрытий</li>
+                            <li>✓ Монтаж утепленной крыши</li>
+                            <li>✓ Установка окон и дверей</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-stage reverse">
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=800"
+                            alt="Внутренняя отделка и интерьер" loading="lazy">
+                        <div class="step-badge">Шаг 04</div>
+                    </div>
+                    <div class="stage-content">
+                        <h3>Инженерия и отделка</h3>
+                        <p>Оживляем дом. Разводим электрику по умным сценариям, запускаем отопление. Выполняем чистовую
+                            отделку: укладка пола, покраска стен, установка сантехники.</p>
+                        <ul class="stage-list">
+                            <li>✓ Теплые полы и смарт-электрика</li>
+                            <li>✓ Малярные и плиточные работы</li>
+                            <li>✓ Монтаж оборудования</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="process-stage">
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800"
+                            alt="Сдача готового дома" loading="lazy">
+                        <div class="step-badge">Шаг 05</div>
+                    </div>
+                    <div class="stage-content">
+                        <h3>Сдача ключей и гарантия</h3>
+                        <p>Финальный штрих. Профессиональный клининг отмывает каждый миллиметр. Мы передаем вам ключи,
+                            папку с документацией и гарантийный сертификат на 5 лет.</p>
+                        <ul class="stage-list">
+                            <li>✓ Генеральная уборка</li>
+                            <li>✓ Передача техдокументации</li>
+                            <li>✓ Торжественное вручение ключей 🔑</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 3.5: Contract & Guarantees -->
+    <section id="guarantees" class="guarantees section-padding premium-guarantees">
+        <canvas id="guaranteesCanvas"></canvas>
+        <div class="guarantees-overlay"></div>
+        <div class="container relative-content">
+            <h2 class="section-title">Работа по договору:</h2>
+            <div class="guarantee-grid no-gap-grid">
+                <!-- Card 1 -->
+                <div class="guarantee-card image-card interactive-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600" alt="Оплата">
+                        <div class="card-icon-overlay"><span class="g-icon">💳</span></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Оплата по этапам</h3>
+                        <p>Только за выполненный объем. <strong>Удобный график</strong> финансирования.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="guarantee-card image-card interactive-card accent-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=600" alt="Сроки">
+                        <div class="card-icon-overlay"><span class="g-icon">⏱️</span></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Ответственность за сроки</h3>
+                        <p>Строго соблюдаем график, прописанный в договоре.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="guarantee-card image-card interactive-card">
+                    <div class="card-img-top">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=600" alt="Отчеты">
+                        <div class="card-icon-overlay"><span class="g-icon">📸</span></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Фото/видео-отчёты</h3>
+                        <p>Регулярные <strong>фото со стройки</strong> в мессенджер.</p>
+                    </div>
+                </div>
+
+                <!-- Bottom row — 2 cards centered in the 3-column grid -->
+                <div class="guarantee-bottom-row">
+                    <!-- Card 4 -->
+                    <div class="guarantee-card image-card interactive-card">
+                        <div class="card-img-top">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=600"
+                                alt="Гарантия">
+                            <div class="card-icon-overlay"><span class="g-icon">🛡️</span></div>
+                        </div>
+                        <div class="card-body">
+                            <h3>Гарантия после сдачи</h3>
+                            <p>Официальная гарантия на фундамент, стены, кровлю и сети.</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="guarantee-card image-card interactive-card accent-card">
+                        <div class="card-img-top">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600"
+                                alt="Профессионализм">
+                            <div class="card-icon-overlay"><span class="g-icon">👷‍♂️</span></div>
+                        </div>
+                        <div class="card-body">
+                            <h3>Профессионализм</h3>
+                            <p>Квалифицированные инженеры, архитекторы и бригады.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referral & Bonus -->
+    <section id="referral" class="referral section-padding">
+        <div class="container">
+            <div class="referral-layout">
+                <div class="referral-text">
+                    <h2>Посоветуйте нас знакомым 🤝</h2>
+                    <p>Строиться с нами выгодно не только вам, но и вашим друзьям. Зарабатывайте вместе с нами.</p>
+
+                    <ul class="bonus-benefits">
+                        <li>
+                            <span class="b-icon">📝</span>
+                            <strong>Проект в подарок</strong> при заказе под ключ
+                        </li>
+                        <li>
+                            <span class="b-icon">⚖️</span>
+                            <strong>Юридическое сопровождение</strong> за наш счет
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="referral-bonus-card glass-card interactive-card tilt-card">
+                    <div class="bonus-amount">200 000 ₽</div>
+                    <p>Порекомендуйте нас, и после подписания договора мы выплатим вам солидный бонус наличными.</p>
+                    <a href="#contacts" class="btn-magnetic btn-white">
+                        <span class="btn-text">Получить бонус</span>
+                        <div class="btn-fill"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 4: Contacts -->
+    <section id="contacts" class="contacts section-padding premium-contacts">
+        <canvas id="contactsCanvas"></canvas>
+        <div class="contacts-overlay"></div>
+        <div class="container text-center relative-content">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <p class="consultation-text">Оставьте заявку на <strong>бесплатную консультацию</strong>. Мы ответим на все
+                вопросы и поможем выбрать лучший вариант.</p>
+
+            <div class="contact-links">
+                <a href="tel:+79991234567" class="contact-card phone btn-magnetic">
+                    <div class="particle-orbit">
+                        <div class="p-dot p-1"></div>
+                        <div class="p-dot p-2"></div>
+                        <div class="p-dot p-3"></div>
+                    </div>
+                    <span class="icon">📞</span>
+                    <span class="info">+7 (999) 123-45-67</span>
+                    <div class="btn-fill"></div>
+                </a>
+                <a href="https://t.me/yourusername" target="_blank" class="contact-card telegram btn-magnetic">
+                    <div class="particle-orbit">
+                        <div class="p-dot p-1"></div>
+                        <div class="p-dot p-2"></div>
+                        <div class="p-dot p-3"></div>
+                    </div>
+                    <span class="icon">✈️</span>
+                    <span class="info">Telegram</span>
+                    <div class="btn-fill"></div>
+                </a>
+                <a href="https://wa.me/79991234567" target="_blank" class="contact-card whatsapp btn-magnetic">
+                    <div class="particle-orbit">
+                        <div class="p-dot p-1"></div>
+                        <div class="p-dot p-2"></div>
+                        <div class="p-dot p-3"></div>
+                    </div>
+                    <span class="icon">💬</span>
+                    <span class="info">WhatsApp</span>
+                    <div class="btn-fill"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AstroBuild. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
