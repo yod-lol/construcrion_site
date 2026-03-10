@@ -281,6 +281,13 @@ a {
 }
 
 @media (max-width: 991px) {
+    .premium-hero {
+        height: auto;
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: 0px;
+    }
+
     .hero-layout.two-columns {
         flex-direction: column;
         align-items: center;
@@ -1622,6 +1629,7 @@ footer p:hover {
 
     .hero-actions {
         justify-content: center;
+        margin-bottom: 30px;
     }
 
     .achievements {
@@ -1755,13 +1763,13 @@ footer p:hover {
         min-height: auto;
         /* Let height grow to fit all content */
         height: auto;
-        padding-bottom: 30px;
+        padding-bottom: 0px;
     }
 
     .hero-container {
-        padding-top: 80px;
+        padding-top: 70px;
         /* Tall enough to clear 56px navbar with breathing room */
-        padding-bottom: 20px;
+        padding-bottom: 0px;
         align-items: flex-start;
         justify-content: center;
     }
@@ -1855,6 +1863,7 @@ footer p:hover {
 
     .hero-actions {
         order: 5;
+        margin-bottom: 15px;
     }
 
     .cta-main {
