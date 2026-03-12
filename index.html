@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
     <!-- Top Navigation -->
     <header class="navbar">
         <div class="logo">AstroBuild</div>
@@ -26,40 +29,48 @@
     </header>
 
     <!-- Block 1: Hero Section -->
-    <section id="hero" class="hero">
-        <!-- Collage Background -->
-        <div class="hero-bg-collage">
-            <div class="collage-item"
-                style="background-image: url('https://l.icdbcdn.com/oh/b789524a-7177-495f-8be0-bbee3b462df7.jpg?w=2080');">
-            </div>
-            <div class="collage-item"
-                style="background-image: url('https://www.ndwd.ru/sites/default/files/styles/project_img_teaser/public/project/2022/nord-180_2.jpg?itok=59HD2qf1');">
-            </div>
-            <div class="collage-item"
-                style="background-image: url('https://transform.octanecdn.com/crop/1920x1080/https://octanecdn.com/thepiedmontgroupsnewcom/thepiedmontgroupsnewcom_638719736.jpg');">
-            </div>
-            <div class="collage-item"
-                style="background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixid=M3wyMjY3NjN8MHwxfHNlYXJjaHw5fHxyZWFsJTIwZXN0YXRlfGVufDB8fHx8MTY5Mjc0MTI5NXww&ixlib=rb-4.0.3&w=1600');">
-            </div>
-            <div class="collage-overlay"></div>
+    <section id="hero" class="hero premium-hero">
+        <div class="hero-bg-image"
+            style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop');">
         </div>
+        <div class="hero-overlay"></div>
+        <canvas id="heroCanvas"></canvas>
 
         <div class="hero-content">
-            <h1 class="tilt-text">Строим частные дома и коммерческие помещения<br><span class="highlight">полностью под
-                    ключ</span></h1>
+            <div class="subtitle-badge">Превосходство в деталях</div>
+            <h1 class="premium-title">
+                <span class="reveal-text">Архитектура</span><br>
+                <span class="reveal-text highlight italic">вашего будущего</span>
+            </h1>
+            <p class="hero-subtitle">Создаем бескомпромиссные частные резиденции и премиальную коммерческую
+                недвижимость. Ваш статус, воплощенный в камне.</p>
 
-            <div class="achievements">
-                <div class="achievement-card">
-                    <span class="number">20</span>
-                    <span class="text">лет на рынке</span>
+            <div class="hero-actions">
+                <a href="#contacts" class="btn-magnetic cta-main">
+                    <span class="btn-text">Обсудить проект</span>
+                    <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                    <div class="btn-fill"></div>
+                </a>
+            </div>
+
+            <div class="achievements premium-achievements">
+                <div class="achievement-item">
+                    <div class="number-wrapper"><span class="number">20</span><span class="plus">+</span></div>
+                    <span class="text">лет экспертизы</span>
                 </div>
-                <div class="achievement-card">
-                    <span class="number">54</span>
-                    <span class="text">объекта сдано</span>
+                <div class="achievement-divider"></div>
+                <div class="achievement-item">
+                    <div class="number-wrapper"><span class="number">54</span></div>
+                    <span class="text">премиальных объекта</span>
                 </div>
-                <div class="achievement-card">
-                    <span class="number">👷‍♂️</span>
-                    <span class="text">команда профессионалов</span>
+                <div class="achievement-divider"></div>
+                <div class="achievement-item">
+                    <div class="number-wrapper"><span class="number">100</span><span class="plus">%</span></div>
+                    <span class="text">соблюдение сроков</span>
                 </div>
             </div>
         </div>
@@ -235,24 +246,29 @@
     </section>
 
     <!-- Block 4: Contacts -->
-    <section id="contacts" class="contacts section-padding dark-bg">
-        <div class="container text-center">
+    <section id="contacts" class="contacts section-padding premium-contacts">
+        <canvas id="contactsCanvas"></canvas>
+        <div class="contacts-overlay"></div>
+        <div class="container text-center relative-content">
             <h2 class="section-title_">Свяжитесь с нами</h2>
             <p class="consultation-text">Оставьте заявку на <strong>бесплатную консультацию</strong>. Мы ответим на все
                 вопросы и поможем выбрать лучший вариант.</p>
 
             <div class="contact-links">
-                <a href="tel:+79991234567" class="contact-card phone">
+                <a href="tel:+79991234567" class="contact-card phone btn-magnetic">
                     <span class="icon">📞</span>
                     <span class="info">+7 (999) 123-45-67</span>
+                    <div class="btn-fill"></div>
                 </a>
-                <a href="https://t.me/yourusername" target="_blank" class="contact-card telegram">
+                <a href="https://t.me/yourusername" target="_blank" class="contact-card telegram btn-magnetic">
                     <span class="icon">✈️</span>
                     <span class="info">Telegram</span>
+                    <div class="btn-fill"></div>
                 </a>
-                <a href="https://wa.me/79991234567" target="_blank" class="contact-card whatsapp">
+                <a href="https://wa.me/79991234567" target="_blank" class="contact-card whatsapp btn-magnetic">
                     <span class="icon">💬</span>
                     <span class="info">WhatsApp</span>
+                    <div class="btn-fill"></div>
                 </a>
             </div>
         </div>
