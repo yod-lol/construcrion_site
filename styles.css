@@ -1441,13 +1441,42 @@ footer p:hover {
 
     /* Process */
     .process-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+    }
+    
+    .process-grid::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .process-step {
+        flex: 0 0 70%;
+        scroll-snap-align: start;
     }
 
     /* Guarantees */
     .guarantee-grid {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 20px;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+    }
+    
+    .guarantee-grid::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .guarantee-card {
+        flex: 0 0 45%;
+        scroll-snap-align: start;
     }
 
     /* Referral */
@@ -1512,11 +1541,15 @@ footer p:hover {
 
     /* Hero */
     .premium-hero {
-        min-height: 100svh;
+        min-height: auto; /* Removed 100svh to close empty spacing before portfolio */
+        padding-top: 160px; /* Increased top offset below navbar to push text down further */
+        padding-bottom: 10px; /* Minimal padding at the bottom */
+        display: flex;
+        flex-direction: column;
     }
 
     .hero-content {
-        padding: 70px 20px 30px;
+        padding: 0px 20px 10px; /* Inner padding adjustments */
         text-align: center;
         align-items: center;
         display: flex;
@@ -1537,11 +1570,17 @@ footer p:hover {
     .hero-subtitle {
         font-size: 0.95rem;
         max-width: 90vw;
+        margin-bottom: 25px; /* Reduced from desktop 50px */
     }
 
     .cta-main {
         font-size: 0.9rem;
         padding: 14px 24px;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        margin-bottom: 0px !important; /* Force override desktop bottom margin completely */
     }
 
     .achievements {
@@ -1550,6 +1589,7 @@ footer p:hover {
         justify-content: center;
         gap: 8px 16px;
         width: 100%;
+        margin-top: 15px; /* Added small gap below button */
     }
 
     .achievement-item {
@@ -1600,16 +1640,33 @@ footer p:hover {
         font-size: 1rem;
     }
 
-    /* Process — fix number overlapping text on mobile */
+    /* Process — make it a scrollable carousel on mobile */
     .process-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 16px;
+        padding: 0 16px 20px 16px; /* Added edge paddings */
+        margin-left: -16px; /* Offset to stretch full width */
+        width: 100vw;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .process-grid::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
     }
 
     .process-step {
-        padding: 20px 20px 20px 20px;
-        /* Remove large left padding */
-        padding-left: 20px;
+        flex: 0 0 80%; /* Match adjusted width */
+        max-width: 320px;
+        scroll-snap-align: center; /* Fix sticky edge issue */
+        padding: 20px; /* Remove large left padding */
+    }
+
+    .process-grid .process-step:first-child {
+        margin-left: 16px; /* Explicit start gap */
     }
 
     .step-num {
@@ -1626,14 +1683,33 @@ footer p:hover {
     }
 
     .guarantee-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 16px;
+        padding: 0 16px 20px 16px; /* Added edge paddings */
+        margin-left: -16px; /* Offset to stretch full width */
+        width: 100vw;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+    
+    .guarantee-grid::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
     }
 
     .guarantee-card {
+        flex: 0 0 80%; /* Match adjusted width */
+        max-width: 320px;
+        scroll-snap-align: center; /* Fix sticky edge issue */
         padding: 28px 20px;
         /* Disable 3D effects on mobile — they feel glitchy on touch */
         transform: none !important;
+    }
+
+    .guarantee-grid .guarantee-card:first-child {
+        margin-left: 16px; /* Explicit start gap */
     }
 
     .guarantee-card .g-icon {
@@ -1641,32 +1717,106 @@ footer p:hover {
         transform: none !important;
     }
 
+    /* Reviews */
+    .reviews-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 0 16px 20px 16px; /* Added edge paddings */
+        margin-left: -16px; /* Offset to stretch full width */
+        width: 100vw;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .reviews-grid::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .glass-card-review {
+        flex: 0 0 80%; /* Match adjusted width */
+        max-width: 320px;
+        scroll-snap-align: center; /* Fix sticky edge issue */
+        padding: 24px 20px;
+        transform: none !important;
+    }
+
     /* Referral */
+    .referral {
+        padding: 40px 16px;
+    }
+
     .referral-content h2 {
         font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .referral-content p {
+        text-align: center;
+        font-size: 0.95rem;
+        margin-bottom: 25px;
     }
 
     .referral-image {
-        height: 300px;
+        height: auto;
+        padding: 40px 15px;
+        border-radius: 16px;
     }
 
     .glass-card {
-        width: 92%;
+        width: 100%;
         padding: 28px 20px;
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .glass-card h3 {
         font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .glass-card p {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
+    /* Referral Carousel for Bonus List */
+    .bonus-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 0 16px 20px 16px; /* Added side padding for initial and final items */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        margin-bottom: 0;
+        width: 100vw;
+        margin-left: -16px; /* Offset to stretch full width and allow edge scroll */
+    }
+
+    .bonus-list::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
     }
 
     .bonus-list li {
+        flex: 0 0 80%; /* Adjusted width for better edge preview */
+        max-width: 320px;
+        scroll-snap-align: center; /* Center snap feels better with edge padding */
         font-size: 0.95rem;
-        padding: 16px 18px;
+        padding: 20px 18px;
+        background: #ffffff; /* Added white background to stand out */
+        border: 1px solid rgba(207, 158, 54, 0.2); /* Added subtle accent border */
+        border-radius: 16px; /* Ensuring rounding is present */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Stronger shadow for separation */
     }
 
     .btn-primary {
         padding: 12px 24px;
         font-size: 0.9rem;
+        width: 100%;
     }
 
     /* Contacts */
@@ -1675,27 +1825,31 @@ footer p:hover {
     }
 
     .contact-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        padding: 0 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center; /* Strictly center items */
+        align-items: stretch;
+        gap: 8px;
+        padding: 0 12px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     .contact-card {
-        width: 100%;
-        min-width: 0;
-        /* Override desktop min-width: 250px */
-        max-width: 360px;
-        padding: 22px 20px;
+        flex: 1; /* Make columns exactly identical width */
+        min-width: 0; /* Prevent layout breakage */
+        padding: 15px 5px;
     }
 
     .contact-card .icon {
-        font-size: 32px;
-        margin-bottom: 10px;
+        font-size: 24px; /* Reduced icon size */
+        margin-bottom: 8px;
     }
 
     .contact-card .info {
-        font-size: 1rem;
+        font-size: 0.8rem; /* Reduced text size */
+        text-align: center;
+        word-break: break-all;
     }
 
     /* Consultation text */
