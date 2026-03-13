@@ -70,40 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 100);
 
-    // 2. Custom Cursor (Mix Blend Mode Difference)
-    const customCursor = document.querySelector('.custom-cursor');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function renderCursor() {
-        // Smooth interpolation (lerp) for the premium feel
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-
-        if (customCursor) {
-            customCursor.style.transform = `translate(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%))`;
-        }
-        requestAnimationFrame(renderCursor);
-    }
-    renderCursor();
-
-    const interactiveElements = document.querySelectorAll('a, button, .btn-magnetic');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            if (customCursor) customCursor.classList.add('active');
-        });
-        el.addEventListener('mouseleave', () => {
-            if (customCursor) customCursor.classList.remove('active');
-        });
-    });
-
     // 2.5 Particles on Hover
     function createParticles(element, type, count = 8) {
         // Prevent overlapping animations if triggered rapidly

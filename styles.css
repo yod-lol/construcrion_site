@@ -35,38 +35,8 @@ body {
     background-color: var(--bg-light);
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
 }
 
-a,
-button {
-    cursor: none;
-}
-
-/* --- Custom Cursor --- */
-.custom-cursor {
-    width: 15px;
-    height: 15px;
-    background-color: #fff;
-    /* Белый цвет обязателен для эффекта инверсии */
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 99999;
-    mix-blend-mode: difference;
-    /* Эффект инверсии цветов текста и фона позади курсора */
-    transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: transform, width, height;
-}
-
-.custom-cursor.active {
-    width: 30px;
-    height: 30px;
-    /* Умеренное увеличение при наведении на интерактивные элементы */
-}
 
 h1,
 h2,
@@ -1018,7 +988,6 @@ a {
 .btn-outline-small:hover {
     background: var(--primary-color);
     color: #000;
-    cursor: none;
 }
 
 /* --- Referral Section --- */
@@ -1186,8 +1155,6 @@ a {
     letter-spacing: 0.5px;
     transition: var(--transition-standard);
     border: none;
-    cursor: none;
-    /* Let custom cursor handle it */
 }
 
 .btn-primary:hover {
@@ -1518,20 +1485,6 @@ footer p:hover {
 
 /* Mobile: up to 600px */
 @media (max-width: 600px) {
-
-    /* Disable custom cursor on touch devices */
-    .custom-cursor {
-        display: none;
-    }
-
-    body {
-        cursor: auto;
-    }
-
-    a,
-    button {
-        cursor: pointer;
-    }
 
     /* Navbar */
     .navbar {
