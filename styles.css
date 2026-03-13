@@ -37,6 +37,20 @@ body {
     overflow-x: hidden;
 }
 
+/* Force default cursors */
+* {
+    cursor: auto;
+}
+
+a,
+button,
+.btn-primary,
+.btn-outline-small,
+.contact-card,
+.portfolio-card {
+    cursor: pointer !important;
+}
+
 
 h1,
 h2,
