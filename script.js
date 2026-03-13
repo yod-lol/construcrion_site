@@ -25,20 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Hero carousel: scroll horizontally with mouse wheel
-    const heroCarouselScroller = document.querySelector('.hero-cards-scroller');
-    if (heroCarouselScroller) {
-        heroCarouselScroller.addEventListener('wheel', (e) => {
-            if (e.deltaY !== 0) {
-                e.preventDefault();
-                heroCarouselScroller.scrollBy({
-                    left: e.deltaY * 1.5,
-                    behavior: 'smooth'
-                });
-            }
-        }, { passive: false });
-    }
-
     // Portfolio is now a CSS-scrollable grid, slider logic removed.
 
     // Intersection Observer for scroll animations (fade in / slide up)
@@ -48,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1
     };
 
-    const animateElements = document.querySelectorAll('.achievement-card, .process-stage, .portfolio-card, .glass-card, .contact-card, .guarantee-card');
+    const animateElements = document.querySelectorAll('.achievement-card, .process-step, .portfolio-card, .glass-card, .contact-card, .guarantee-card');
 
     // Add initial CSS state
     animateElements.forEach(el => {
@@ -687,39 +673,6 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animateGuaranteesParticles);
         }
         animateGuaranteesParticles();
-    }
-
-    // 9. Drag-to-Scroll for Hero Cards Scroller
-    const heroScroller = document.querySelector('.hero-cards-scroller');
-    if (heroScroller) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        heroScroller.addEventListener('mousedown', (e) => {
-            isDown = true;
-            // Temporarily disable snap to allow smooth dragging
-            heroScroller.style.scrollSnapType = 'none';
-            startX = e.pageX - heroScroller.offsetLeft;
-            scrollLeft = heroScroller.scrollLeft;
-        });
-
-        const stopDrag = () => {
-            isDown = false;
-            // Re-enable snap after dragging
-            heroScroller.style.scrollSnapType = 'x mandatory';
-        };
-
-        heroScroller.addEventListener('mouseleave', stopDrag);
-        heroScroller.addEventListener('mouseup', stopDrag);
-
-        heroScroller.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - heroScroller.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll speed multiplier
-            heroScroller.scrollLeft = scrollLeft - walk;
-        });
     }
 
 });
