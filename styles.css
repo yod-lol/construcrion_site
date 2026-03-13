@@ -221,10 +221,10 @@ a {
     width: 100%;
     height: 100%;
     /* Глубокое затемнение для выделения интерактива */
-    background: linear-gradient(135deg, rgba(8, 12, 8, 0.75) 0%, rgba(5, 5, 5, 0.9) 100%);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, rgba(8, 12, 8, 0.4) 0%, rgba(5, 5, 5, 0.5) 100%);
+    backdrop-filter: blur(4px);
     /* Сильный эффект блюра */
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 2;
     pointer-events: none;
 }
@@ -872,6 +872,153 @@ a {
 
 .guarantee-card.accent-card p {
     color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Reviews Section --- */
+.reviews {
+    position: relative;
+    background-color: var(--bg-alt);
+    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.reviews::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(47, 62, 70, 0.95) 0%, rgba(20, 25, 30, 0.9) 100%);
+    z-index: 1;
+}
+
+.container-reviews {
+    position: relative;
+    z-index: 2;
+}
+
+.reviews .section-title {
+    color: var(--primary-color);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.glass-card-review {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card-review:hover {
+    transform: translateY(-8px);
+    border-color: rgba(207, 158, 54, 0.4);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.client-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(207, 158, 54, 0.3);
+}
+
+.client-info h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.client-role {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.review-body {
+    flex-grow: 1;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.review-text {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.review-object {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.object-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.object-detail:last-of-type {
+    margin-bottom: 15px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.o-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.o-val {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.btn-outline-small {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.btn-outline-small:hover {
+    background: var(--primary-color);
+    color: #000;
+    cursor: none;
 }
 
 /* --- Referral Section --- */
