@@ -25,7 +25,100 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Portfolio is now a CSS-scrollable grid, slider logic removed.
+    // Portfolio Accordion & Marquee Logic
+    const portfolioGridWrapper = document.querySelector('.portfolio-grid-wrapper');
+    const oldFilter = document.querySelector('.portfolio-header');
+    
+    if (portfolioGridWrapper) {
+        const cards = Array.from(document.querySelectorAll('.portfolio-card'));
+        
+        // Revert filter header to regular header if it exists
+        if (oldFilter) {
+            oldFilter.outerHTML = '<h2 class="section-title" style="color: #1F291B;">Готовые кейсы и отзывы</h2>';
+        } else {
+            const h2 = document.querySelector('#portfolio .section-title');
+            if(h2) h2.style.color = '#1F291B'; // Ensure not white
+        }
+
+        const accordionContainer = document.createElement('div');
+        accordionContainer.className = 'portfolio-accordion';
+        
+        const categories = [
+            { id: 'residential', title: 'Частные дома', cards: [] },
+            { id: 'commercial', title: 'Коммерческая недвижимость', cards: [] }
+        ];
+        
+        cards.forEach((card, index) => {
+            const i = index + 1;
+            // Residential: 1, 3, 5, 7, 9
+            if ([1, 3, 5, 7, 9].includes(i)) {
+                categories[0].cards.push(card);
+            } 
+            // Commercial: 2, 4, 6, 8, 10
+            else if ([2, 4, 6, 8, 10].includes(i)) {
+                categories[1].cards.push(card);
+            }
+        });
+        
+        categories.forEach((cat, index) => {
+            const item = document.createElement('div');
+            item.className = `accordion-item ${index === 0 ? 'active' : ''}`;
+            
+            const header = document.createElement('button');
+            header.className = 'accordion-header';
+            header.innerHTML = `<h3>${cat.title}</h3><span class="accordion-icon">+</span>`;
+            
+            const body = document.createElement('div');
+            body.className = 'accordion-body';
+            
+            const gridInner = document.createElement('div');
+            gridInner.className = 'portfolio-grid-inner';
+            
+            cat.cards.forEach(card => {
+                // Ensure card is visible and styled properly
+                card.classList.remove('hidden');
+                card.style.flex = ''; // Let CSS handle layout
+                card.style.minWidth = '';
+                gridInner.appendChild(card);
+            });
+            body.appendChild(gridInner);
+            item.appendChild(header);
+            item.appendChild(body);
+            accordionContainer.appendChild(item);
+            
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+        
+        let marqueeCardsHTML = '';
+        cards.forEach(card => {
+            let reviewText = card.dataset.review;
+            const projectTitle = card.querySelector('h3')?.innerText;
+            
+            if (reviewText && projectTitle) {
+                reviewText = reviewText.replace(/^«|»$/g, '').trim();
+                marqueeCardsHTML += `
+                    <div class="marquee-review-card">
+                        <p class="review-text" style="color: #333;">«${reviewText}»</p>
+                        <div class="review-author" style="color: #CF9E36;">— ${projectTitle}</div>
+                    </div>
+                `;
+            }
+        });
+
+        const trackParent = document.getElementById('marqueeTrack')?.parentNode; // save track div
+        // Wipe wrapper and inject accordion
+        portfolioGridWrapper.innerHTML = '';
+        portfolioGridWrapper.appendChild(accordionContainer);
+        
+        const marqueeTrack = document.getElementById('marqueeTrack');
+        if (marqueeTrack && marqueeCardsHTML) {
+            marqueeTrack.innerHTML = marqueeCardsHTML + marqueeCardsHTML;
+        }
+    }
 
     // Intersection Observer for scroll animations (fade in / slide up)
     const observerOptions = {
@@ -65,44 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Initial Reveal Animations
     setTimeout(() => {
-        document.querySelectorAll('.reveal-text, .subtitle-badge, .hero-subtitle, .hero-actions, .premium-achievements').forEach(el => {
+        document.querySelectorAll('.reveal-text, .subtitle-badge, .hero-subtitle, .hero-actions, .modern-achievements').forEach(el => {
             el.classList.add('visible');
         });
     }, 100);
-
-    // 2. Custom Cursor (Mix Blend Mode Difference)
-    const customCursor = document.querySelector('.custom-cursor');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function renderCursor() {
-        // Smooth interpolation (lerp) for the premium feel
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-
-        if (customCursor) {
-            customCursor.style.transform = `translate(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%))`;
-        }
-        requestAnimationFrame(renderCursor);
-    }
-    renderCursor();
-
-    const interactiveElements = document.querySelectorAll('a, button, .btn-magnetic');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            if (customCursor) customCursor.classList.add('active');
-        });
-        el.addEventListener('mouseleave', () => {
-            if (customCursor) customCursor.classList.remove('active');
-        });
-    });
 
     // 2.5 Particles on Hover
     function createParticles(element, type, count = 8) {
