@@ -25,36 +25,99 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Slider Logic for Portfolio section
-    const track = document.getElementById('sliderTrack');
-    const slides = document.querySelectorAll('.slide');
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
+    // Portfolio Accordion & Marquee Logic
+    const portfolioGridWrapper = document.querySelector('.portfolio-grid-wrapper');
+    const oldFilter = document.querySelector('.portfolio-header');
+    
+    if (portfolioGridWrapper) {
+        const cards = Array.from(document.querySelectorAll('.portfolio-card'));
+        
+        // Revert filter header to regular header if it exists
+        if (oldFilter) {
+            oldFilter.outerHTML = '<h2 class="section-title" style="color: #1F291B;">Готовые кейсы и отзывы</h2>';
+        } else {
+            const h2 = document.querySelector('#portfolio .section-title');
+            if(h2) h2.style.color = '#1F291B'; // Ensure not white
+        }
 
-    let currentIndex = 0;
-    const slideCount = slides.length;
+        const accordionContainer = document.createElement('div');
+        accordionContainer.className = 'portfolio-accordion';
+        
+        const categories = [
+            { id: 'residential', title: 'Частные дома', cards: [] },
+            { id: 'commercial', title: 'Коммерческая недвижимость', cards: [] },
+            { id: 'special', title: 'Инвест-проекты и Спецстроения', cards: [] }
+        ];
+        
+        cards.forEach((card, index) => {
+            const i = index + 1;
+            if ([1, 3, 7, 9].includes(i)) {
+                categories[0].cards.push(card);
+            } else if ([2, 4, 6, 8].includes(i)) {
+                categories[1].cards.push(card);
+            } else if ([5, 10].includes(i)) {
+                categories[2].cards.push(card);
+            }
+        });
+        
+        categories.forEach((cat, index) => {
+            const item = document.createElement('div');
+            item.className = `accordion-item ${index === 0 ? 'active' : ''}`;
+            
+            const header = document.createElement('button');
+            header.className = 'accordion-header';
+            header.innerHTML = `<h3>${cat.title}</h3><span class="accordion-icon">+</span>`;
+            
+            const body = document.createElement('div');
+            body.className = 'accordion-body';
+            
+            const gridInner = document.createElement('div');
+            gridInner.className = 'portfolio-grid-inner';
+            
+            cat.cards.forEach(card => {
+                // Ensure card is visible and styled properly
+                card.classList.remove('hidden');
+                card.style.flex = ''; // Let CSS handle layout
+                card.style.minWidth = '';
+                gridInner.appendChild(card);
+            });
+            body.appendChild(gridInner);
+            item.appendChild(header);
+            item.appendChild(body);
+            accordionContainer.appendChild(item);
+            
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+        
+        let marqueeCardsHTML = '';
+        cards.forEach(card => {
+            let reviewText = card.querySelector('.card-review p')?.textContent;
+            const projectTitle = card.querySelector('.card-content h3')?.textContent;
+            if (reviewText && projectTitle) {
+                reviewText = reviewText.replace(/^«|»$/g, '').trim();
+                marqueeCardsHTML += `
+                    <div class="marquee-review-card">
+                        <p class="review-text" style="color: #333;">«${reviewText}»</p>
+                        <div class="review-author" style="color: #CF9E36;">— ${projectTitle}</div>
+                    </div>
+                `;
+            }
+        });
 
-    function updateSliderPosition() {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        const trackParent = document.getElementById('marqueeTrack')?.parentNode; // save track div
+        // Wipe wrapper and inject accordion
+        portfolioGridWrapper.innerHTML = '';
+        portfolioGridWrapper.appendChild(accordionContainer);
+        
+        const marqueeTrack = document.getElementById('marqueeTrack');
+        if (marqueeTrack && marqueeCardsHTML) {
+            marqueeTrack.innerHTML = marqueeCardsHTML + marqueeCardsHTML;
+        }
     }
-
-    nextBtn.addEventListener('click', () => {
-        if (currentIndex < slideCount - 1) {
-            currentIndex++;
-        } else {
-            currentIndex = 0; // Loop back to start
-        }
-        updateSliderPosition();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = slideCount - 1; // Go to last slide
-        }
-        updateSliderPosition();
-    });
 
     // Intersection Observer for scroll animations (fade in / slide up)
     const observerOptions = {
@@ -63,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1
     };
 
-    const animateElements = document.querySelectorAll('.achievement-card, .process-step, .slide-info, .glass-card, .contact-card, .guarantee-card');
+    const animateElements = document.querySelectorAll('.achievement-card, .process-step, .portfolio-card, .glass-card, .contact-card, .guarantee-card');
 
     // Add initial CSS state
     animateElements.forEach(el => {
@@ -94,44 +157,103 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Initial Reveal Animations
     setTimeout(() => {
-        document.querySelectorAll('.reveal-text, .subtitle-badge, .hero-subtitle, .hero-actions, .premium-achievements').forEach(el => {
+        document.querySelectorAll('.reveal-text, .subtitle-badge, .hero-subtitle, .hero-actions, .modern-achievements').forEach(el => {
             el.classList.add('visible');
         });
     }, 100);
 
-    // 2. Custom Cursor (Mix Blend Mode Difference)
-    const customCursor = document.querySelector('.custom-cursor');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
+    // 2.5 Particles on Hover
+    function createParticles(element, type, count = 8) {
+        // Prevent overlapping animations if triggered rapidly
+        if (element.dataset.spawning) return;
+        element.dataset.spawning = "true";
+        setTimeout(() => element.dataset.spawning = "", 800);
 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
+        const rect = element.getBoundingClientRect();
+        // В цвет слоновой кости (ivory) или второстепенного (secondary)
+        const colors = ['var(--bg-ivory)', 'var(--secondary-color)'];
 
-    function renderCursor() {
-        // Smooth interpolation (lerp) for the premium feel
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
 
-        if (customCursor) {
-            customCursor.style.transform = `translate(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%))`;
+            // Randomize position within the button
+            const originX = Math.random() * rect.width;
+            const originY = Math.random() * rect.height;
+
+            // Randomize flight direction
+            const tx = (Math.random() - 0.5) * 150 + 'px';
+            const ty = (Math.random() - 0.5) * 150 - 50 + 'px'; // Tend to fly upwards slightly
+            const rot = (Math.random() - 0.5) * 360 + 'deg';
+
+            particle.style.left = `${originX}px`;
+            particle.style.top = `${originY}px`;
+            particle.style.setProperty('--tx', tx);
+            particle.style.setProperty('--ty', ty);
+            particle.style.setProperty('--rot', rot);
+
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.color = color;
+
+            if (type === 'confetti') {
+                particle.style.width = '8px';
+                particle.style.height = '8px';
+                particle.style.backgroundColor = color;
+                // Optional: make some circular
+                if (Math.random() > 0.5) particle.style.borderRadius = '50%';
+            } else if (type === 'phone') {
+                particle.style.width = '16px';
+                particle.style.height = '16px';
+                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>`;
+            } else if (type === 'telegram') {
+                particle.style.width = '18px';
+                particle.style.height = '18px';
+                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>`;
+            } else if (type === 'whatsapp') {
+                particle.style.width = '18px';
+                particle.style.height = '18px';
+                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>`;
+            }
+
+            // Must be relatively positioned element to contain the absolute particles
+            if (getComputedStyle(element).position === 'static') {
+                element.style.position = 'relative';
+            }
+
+            // Make sure element doesn't hide particles if possible, but keep overflowing if needed
+            element.appendChild(particle);
+
+            // Cleanup
+            setTimeout(() => {
+                if (element.contains(particle)) {
+                    particle.remove();
+                }
+            }, 800);
         }
-        requestAnimationFrame(renderCursor);
     }
-    renderCursor();
 
-    const interactiveElements = document.querySelectorAll('a, button, .btn-magnetic');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            if (customCursor) customCursor.classList.add('active');
-        });
-        el.addEventListener('mouseleave', () => {
-            if (customCursor) customCursor.classList.remove('active');
-        });
-    });
+    // Attach to specific elements
+    const referralBtn = document.querySelector('.referral .btn-primary');
+    if (referralBtn) {
+        // Remove overflow hidden from parent to allow particles to fly out if needed
+        referralBtn.style.overflow = 'visible';
+        referralBtn.addEventListener('mouseenter', () => createParticles(referralBtn, 'confetti', 15));
+    }
+
+    const phoneContact = document.querySelector('.contact-card.phone');
+    if (phoneContact) {
+        phoneContact.addEventListener('mouseenter', () => createParticles(phoneContact, 'phone', 6));
+    }
+
+    const tgContact = document.querySelector('.contact-card.telegram');
+    if (tgContact) {
+        tgContact.addEventListener('mouseenter', () => createParticles(tgContact, 'telegram', 6));
+    }
+
+    const waContact = document.querySelector('.contact-card.whatsapp');
+    if (waContact) {
+        waContact.addEventListener('mouseenter', () => createParticles(waContact, 'whatsapp', 6));
+    }
 
     // 3. Magnetic Button Effect
     const magneticBtns = document.querySelectorAll('.btn-magnetic');
@@ -227,23 +349,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 let currentClickX = e.clientX - rect.left;
                 let currentClickY = e.clientY - rect.top;
 
-                // Сверхъяркий взрыв созвездия (больше частиц, выше скорость)
-                for (let i = 0; i < 40; i++) {
+                // Spawn 15 particles radially
+                for (let i = 0; i < 15; i++) {
                     const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 5 + 1; // Скорость от 1 до 6
+                    const speed = Math.random() * 2 + 0.5;
                     particles.push(new Particle(
-                        currentClickX + Math.cos(angle) * 5,
-                        currentClickY + Math.sin(angle) * 5,
+                        currentClickX + Math.cos(angle) * 10,
+                        currentClickY + Math.sin(angle) * 10,
                         Math.cos(angle) * speed,
-                        Math.sin(angle) * speed,
-                        true // Флаг: рожден по клику (для особой яркости)
+                        Math.sin(angle) * speed
                     ));
                 }
             }
         });
 
         class Particle {
-            constructor(x, y, vx, vy, isClicked = false) {
+            constructor(x, y, vx, vy) {
                 this.x = x !== undefined ? x : Math.random() * width;
                 this.y = y !== undefined ? y : Math.random() * height;
                 this.baseSize = Math.random() * 2 + 1;
@@ -251,9 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.speedX = vx !== undefined ? vx : Math.random() * 0.4 - 0.2;
                 this.speedY = vy !== undefined ? vy : Math.random() * 0.4 - 0.2;
                 // Friction for particles spawned by click
-                this.friction = vx !== undefined ? 0.95 : 1; // Усиленное трение для эффектного замедления
-                this.isClicked = isClicked; // Метка для особой отрисовки
-                this.life = isClicked ? 1.0 : 0; // Жизненный цикл для затухания яркости
+                this.friction = vx !== undefined ? 0.98 : 1;
             }
             update() {
                 this.speedX *= this.friction;
@@ -264,10 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.friction = 1;
                     this.speedX = Math.random() * 0.4 - 0.2;
                     this.speedY = Math.random() * 0.4 - 0.2;
-                }
-
-                if (this.isClicked && this.life > 0) {
-                    this.life -= 0.01; // Постепенное затухание спец-эффекта
                 }
 
                 this.x += this.speedX;
@@ -296,20 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             draw() {
-                // Если частица создана кликом, она вспыхивает ярким белым/золотым цветом и медленно остывает
-                if (this.isClicked && this.life > 0) {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${this.life})`; // Яркая белая вспышка
-                    ctx.shadowBlur = 15;
-                    ctx.shadowColor = 'rgba(207, 158, 54, 1)';
-                } else {
-                    ctx.fillStyle = 'rgba(207, 158, 54, 0.8)';
-                    ctx.shadowBlur = 0;
-                }
-
+                ctx.fillStyle = 'rgba(207, 158, 54, 0.8)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.shadowBlur = 0; // Сброс тени
             }
         }
 
@@ -406,32 +511,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 let currentClickX = e.clientX - rect.left;
                 let currentClickY = e.clientY - rect.top;
 
-                // Взрыв созвездия (больше частиц, выше скорость)
-                for (let i = 0; i < 40; i++) {
+                for (let i = 0; i < 15; i++) {
                     const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 5 + 1; // Скорость от 1 до 6
+                    const speed = Math.random() * 2 + 0.5;
                     particles2.push(new ContactParticle(
-                        currentClickX + Math.cos(angle) * 5,
-                        currentClickY + Math.sin(angle) * 5,
+                        currentClickX + Math.cos(angle) * 10,
+                        currentClickY + Math.sin(angle) * 10,
                         Math.cos(angle) * speed,
-                        Math.sin(angle) * speed,
-                        true // Флаг для яркой отрисовки
+                        Math.sin(angle) * speed
                     ));
                 }
             }
         });
 
         class ContactParticle {
-            constructor(x, y, vx, vy, isClicked = false) {
+            constructor(x, y, vx, vy) {
                 this.x = x !== undefined ? x : Math.random() * width2;
                 this.y = y !== undefined ? y : Math.random() * height2;
                 this.baseSize = Math.random() * 2 + 1;
                 this.size = this.baseSize;
                 this.speedX = vx !== undefined ? vx : Math.random() * 0.4 - 0.2;
                 this.speedY = vy !== undefined ? vy : Math.random() * 0.4 - 0.2;
-                this.friction = vx !== undefined ? 0.95 : 1;
-                this.isClicked = isClicked;
-                this.life = isClicked ? 1.0 : 0;
+                this.friction = vx !== undefined ? 0.98 : 1;
             }
             update() {
                 this.speedX *= this.friction;
@@ -441,10 +542,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.friction = 1;
                     this.speedX = Math.random() * 0.4 - 0.2;
                     this.speedY = Math.random() * 0.4 - 0.2;
-                }
-
-                if (this.isClicked && this.life > 0) {
-                    this.life -= 0.01;
                 }
 
                 this.x += this.speedX;
@@ -469,19 +566,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             draw() {
-                if (this.isClicked && this.life > 0) {
-                    ctx2.fillStyle = `rgba(255, 255, 255, ${this.life})`;
-                    ctx2.shadowBlur = 15;
-                    ctx2.shadowColor = 'rgba(207, 158, 54, 1)';
-                } else {
-                    ctx2.fillStyle = 'rgba(207, 158, 54, 0.8)';
-                    ctx2.shadowBlur = 0;
-                }
-
+                ctx2.fillStyle = 'rgba(207, 158, 54, 0.8)';
                 ctx2.beginPath();
                 ctx2.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx2.fill();
-                ctx2.shadowBlur = 0;
             }
         }
 
@@ -537,6 +625,112 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animateContactsParticles);
         }
         animateContactsParticles();
+    }
+
+    // 7. Interactive Guarantees (3D Hover & Glowing Borders)
+    const guaranteeCards = document.querySelectorAll('.interactive-card');
+    guaranteeCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            // 3D Tilt effect (subtle)
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -5; // Subtle 5deg max
+            const rotateY = ((x - centerX) / centerX) * 5;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = ``; // Reset to CSS default hover state
+        });
+    });
+
+    // 8. Dynamic Background for Guarantees
+    const guaranteesCanvas = document.getElementById('guaranteesCanvas');
+    if (guaranteesCanvas) {
+        const ctx3 = guaranteesCanvas.getContext('2d');
+        let width3, height3;
+        let particles3 = [];
+
+        const guaranteesSection = document.getElementById('guarantees');
+
+        function resizeGuaranteesCanvas() {
+            width3 = guaranteesCanvas.width = guaranteesSection.offsetWidth;
+            height3 = guaranteesCanvas.height = guaranteesSection.offsetHeight;
+        }
+
+        window.addEventListener('resize', resizeGuaranteesCanvas);
+        resizeGuaranteesCanvas();
+
+        class GuaranteeParticle {
+            constructor() {
+                this.x = Math.random() * width3;
+                this.y = Math.random() * height3;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.2 - 0.1; // Slow floating
+                this.speedY = Math.random() * 0.2 - 0.1;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > width3) this.x = 0;
+                else if (this.x < 0) this.x = width3;
+                if (this.y > height3) this.y = 0;
+                else if (this.y < 0) this.y = height3;
+            }
+            draw() {
+                ctx3.fillStyle = `rgba(207, 158, 54, ${this.opacity})`;
+                ctx3.beginPath();
+                ctx3.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx3.fill();
+            }
+        }
+
+        function initGuaranteesParticles() {
+            particles3 = [];
+            let numParticles = Math.min(Math.floor(width3 / 25), 60);
+            for (let i = 0; i < numParticles; i++) {
+                particles3.push(new GuaranteeParticle());
+            }
+        }
+        initGuaranteesParticles();
+
+        function animateGuaranteesParticles() {
+            ctx3.clearRect(0, 0, width3, height3);
+
+            for (let i = 0; i < particles3.length; i++) {
+                particles3[i].update();
+                particles3[i].draw();
+
+                // Connect for a slow mesh effect
+                for (let j = i; j < particles3.length; j++) {
+                    const dx = particles3[i].x - particles3[j].x;
+                    const dy = particles3[i].y - particles3[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx3.beginPath();
+                        ctx3.strokeStyle = `rgba(207, 158, 54, ${0.1 - distance / 1200})`;
+                        ctx3.lineWidth = 0.5;
+                        ctx3.moveTo(particles3[i].x, particles3[i].y);
+                        ctx3.lineTo(particles3[j].x, particles3[j].y);
+                        ctx3.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateGuaranteesParticles);
+        }
+        animateGuaranteesParticles();
     }
 
 });
