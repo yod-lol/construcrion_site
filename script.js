@@ -123,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const rect = element.getBoundingClientRect();
         // В цвет слоновой кости (ivory) или второстепенного (secondary)
-        const colors = ['var(--bg-ivory)', 'var(--secondary-color)'];
+        let colors = ['var(--bg-ivory)', 'var(--secondary-color)'];
+        if (type === 'vax') colors = ['#8e44ad', '#9b59b6', '#dcdde1'];
 
         for (let i = 0; i < count; i++) {
             const particle = document.createElement('div');
@@ -165,12 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 particle.style.width = '18px';
                 particle.style.height = '18px';
                 particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>`;
-            } else if (type === 'max') {
-                particle.style.width = '18px';
-                particle.style.height = '18px';
-                // Purple color for MAX
-                particle.style.color = '#A855F7';
-                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>`;
+            } else if (type === 'vax') {
+                particle.style.width = '16px';
+                particle.style.height = '16px';
+                particle.innerHTML = `<span style="font-size: 14px; font-weight: bold;">M</span>`;
             }
 
             // Must be relatively positioned element to contain the absolute particles
@@ -213,9 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
         waContact.addEventListener('mouseenter', () => createParticles(waContact, 'whatsapp', 6));
     }
 
-    const maxContact = document.querySelector('.contact-card.maks');
-    if (maxContact) {
-        maxContact.addEventListener('mouseenter', () => createParticles(maxContact, 'max', 6));
+    const vaxContact = document.querySelector('.contact-card.vax-contact');
+    if (vaxContact) {
+        vaxContact.addEventListener('mouseenter', () => createParticles(vaxContact, 'vax', 6));
     }
 
     // 3. Magnetic Button Effect
