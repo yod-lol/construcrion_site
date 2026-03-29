@@ -6,22 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Строительство домов и коммерческих помещений под ключ</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;700;800&family=Montserrat:wght@700;900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
     <!-- Top Navigation -->
     <header class="navbar">
+        <button class="mobile-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="logo"></div>
         <nav>
             <a href="#hero">Главная</a>
-            <a href="#portfolio">Кейсы и отзывы</a>
+            <a href="#portfolio">Проекты и отзывы</a>
             <a href="#process">Этапы</a>
-            <a href="#referral">Бонусы</a>
+            <a href="#referral">Подарки</a>
             <a href="#contacts">Контакты</a>
         </nav>
-        <a href="#contacts" class="cta-nav">Связаться</a>
+        <div class="nav-right">
+            <a href="#contacts" class="cta-nav">Связаться</a>
+        </div>
     </header>
 
     <!-- Block 1: Hero Section -->
@@ -37,11 +44,10 @@
 
         <div class="hero-content">
             <div class="hero-top-area">
-                <div class="subtitle-badge">Надежно, современно, уютно</div>
-                <h1 class="modern-title" style="width: 100%; text-align: left;">
-                    <span class="reveal-text">Строим дома и</span><br>
-                    <span class="reveal-text">коммерческие помещения</span><br>
-                    <span class="reveal-text">любого масштаба</span>
+                <h1 class="modern-title premium-title">
+                    <span class="line-1">СТРОИМ ДОМА И</span><br>
+                    <span class="line-2">КОММЕРЧЕСКИЕ ПОМЕЩЕНИЯ</span><br>
+                    <span class="line-3">ЛЮБОГО МАСШТАБА</span>
                 </h1>
             </div>
 
@@ -84,7 +90,7 @@
     <!-- Block 2: Portfolio Slider -->
     <section id="portfolio" class="portfolio section-padding">
         <div class="container">
-            <h2 class="section-title" style="color: #1F291B;">Готовые кейсы и отзывы</h2>
+            <h2 class="section-title" style="color: #1F291B;">Готовые проекты и отзывы</h2>
             <div class="portfolio-tabs">
                 <button class="tab-btn active" data-filter="all">Все проекты</button>
                 <button class="tab-btn" data-filter="house">Частные дома</button>
@@ -218,7 +224,7 @@
                             <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1000"
                                 alt="А-фрейм" loading="lazy">
                             <div class="card-badges">
-                                <span class="badge">Инвест-проект</span>
+                                <span class="badge">Инвестиционный проект</span>
                                 <span class="badge material">Брус</span>
                             </div>
                         </div>
@@ -261,7 +267,7 @@
                                 <div class="spec-item"><span class="s-icon">⏱️</span><span class="s-val">3
                                         мес.</span><span class="s-label">Срок</span></div>
                                 <div class="spec-item"><span class="s-icon">🛒</span><span
-                                        class="s-val">Ритейл</span><span class="s-label">Тип</span></div>
+                                        class="s-val">Торговля</span><span class="s-label">Тип</span></div>
                             </div>
                             <div class="card-review">
                                 <span class="quote-icon">“</span>
@@ -351,7 +357,7 @@
                                 <div class="spec-item"><span class="s-icon">⏱️</span><span class="s-val">9
                                         мес.</span><span class="s-label">Срок</span></div>
                                 <div class="spec-item"><span class="s-icon">🏊‍♂️</span><span
-                                        class="s-val">Бассейн</span><span class="s-label">Опция</span></div>
+                                        class="s-val">Бассейн</span><span class="s-label">Особенность</span></div>
                             </div>
                             <div class="card-review">
                                 <span class="quote-icon">“</span>
@@ -435,7 +441,7 @@
                 <div class="process-step">
                     <div class="step-num">04</div>
                     <h3>Сдача под ключ</h3>
-                    <p>Уборка клининговой компанией, передача ключей и пакета документов. Вы заезжаете в полностью
+                    <p>Уборка специальной службой, передача ключей и пакета документов. Вы заезжаете в полностью
                         готовый дом.</p>
                 </div>
             </div>
@@ -483,12 +489,11 @@
 
 
     <!-- Referral & Bonus -->
-    <section id="referral" class="referral section-padding">
+    <section id="referral" class="referral section-padding section-inactive">
         <div class="container flex-container">
             <div class="referral-content">
-                <h2>Реферальная программа и Бонусы 🎁</h2>
-                <p>Рекомендуйте нас друзьям и получайте кэшбек или приятные подарки для вашего нового дома. Строиться с
-                    нами выгодно!</p>
+                <h2>Партнерская программа <span class="status-badge">Временно недоступна</span></h2>
+                <p>Рекомендуйте нас друзьям и знакомым и получайте ценные подарки за каждую успешную рекомендацию!</p>
                 <ul class="bonus-list">
                     <li>✔️ Приведите друга — получите <strong>до 200 000 ₽</strong> после подписания ими договора.</li>
                     <li>✔️ При заказе дома под ключ — <strong>проект в подарок</strong>.</li>
@@ -498,10 +503,10 @@
             <div class="referral-image">
                 <div class="glass-card bonus-inactive"
                     style="filter: grayscale(1); opacity: 0.6; pointer-events: none;">
-                    <h3>Ваш Бонус <span style="font-size: 0.8em; color: gray;">(временно недоступен)</span></h3>
+                    <h3>Ваш подарок <span style="font-size: 0.8em; color: gray;">(временно недоступен)</span></h3>
                     <p>Оставьте заявку сегодня и забронируйте бесплатный выезд инженера и смету.</p>
                     <a href="#contacts" class="btn-primary"
-                        style="background: #ccc; border-color: #ccc; color: #666;">Забрать бонус</a>
+                        style="background: #ccc; border-color: #ccc; color: #666;">Забрать подарок</a>
                 </div>
             </div>
         </div>
@@ -518,22 +523,39 @@
 
             <div class="contact-links">
                 <a href="tel:+79991234567" class="contact-card phone btn-magnetic">
-                    <span class="icon">📞</span>
+                    <span class="icon">
+                        <svg viewBox="0 0 100 100" width="40" height="40">
+                            <circle cx="50" cy="50" r="48" fill="#F1C40F"/>
+                            <path d="M30 35c0-2.8 2.2-5 5-5h5q2 0 3 1.5l3.5 6q1 1.5 0 3l-3 3c-1 1-1 2.5 0 3.5l10 10c1 1 2.5 1 3.5 0l3-3q1.5-1.5 3 0l6 3.5q1.5 1 1.5 3v5c0 2.8-2.2 5-5 5h-7a30 30 0 0 1-30-30v-7z" fill="#fff"/>
+                        </svg>
+                    </span>
                     <span class="info">+7 (999) 123-45-67</span>
                     <div class="btn-fill"></div>
                 </a>
                 <a href="https://t.me/yourusername" target="_blank" class="contact-card telegram btn-magnetic">
-                    <span class="icon">✈️</span>
+                    <span class="icon">
+                        <svg viewBox="0 0 100 100" width="40" height="40">
+                            <circle cx="50" cy="50" r="48" fill="#0088cc"/>
+                            <path d="M25 50l45-20l-10 40l-12-10l-8 8l-2-12z" fill="#fff"/>
+                            <path d="M70 30l-45 20l25 8l20-28z" fill="rgba(255,255,255,0.8)"/>
+                        </svg>
+                    </span>
                     <span class="info">Telegram</span>
                     <div class="btn-fill"></div>
                 </a>
-                <a href="https://wa.me/79991234567" target="_blank" class="contact-card whatsapp btn-magnetic">
-                    <span class="icon">💬</span>
-                    <span class="info">WhatsApp</span>
-                    <div class="btn-fill"></div>
-                </a>
                 <a href="#" target="_blank" class="contact-card vax-contact btn-magnetic">
-                    <span class="icon">💬</span>
+                    <span class="icon max-logo-svg">
+                        <svg viewBox="0 0 100 100" width="40" height="40">
+                            <defs>
+                                <linearGradient id="maxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#007AFF" />
+                                    <stop offset="100%" style="stop-color:#8e44ad" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="48" fill="url(#maxGradient)" />
+                            <path d="M25 70V30L50 55L75 30V70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                        </svg>
+                    </span>
                     <span class="info">MAX</span>
                     <div class="btn-fill"></div>
                 </a>

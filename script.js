@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 behavior: 'smooth',
                 block: 'start'
             });
+
+            // Close mobile menu if open
+            if (navbar) {
+                navbar.classList.remove('nav-active');
+                document.body.style.overflow = '';
+            }
         });
     });
 
@@ -109,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Initial Reveal Animations
     setTimeout(() => {
-        document.querySelectorAll('.reveal-text, .subtitle-badge, .hero-subtitle, .hero-actions, .modern-achievements').forEach(el => {
+        document.querySelectorAll('.reveal-text, .hero-subtitle, .hero-actions, .modern-achievements').forEach(el => {
             el.classList.add('visible');
         });
     }, 100);
@@ -162,10 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 particle.style.width = '18px';
                 particle.style.height = '18px';
                 particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>`;
-            } else if (type === 'whatsapp') {
-                particle.style.width = '18px';
-                particle.style.height = '18px';
-                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>`;
             } else if (type === 'vax') {
                 particle.style.width = '16px';
                 particle.style.height = '16px';
@@ -207,14 +209,24 @@ document.addEventListener('DOMContentLoaded', () => {
         tgContact.addEventListener('mouseenter', () => createParticles(tgContact, 'telegram', 6));
     }
 
-    const waContact = document.querySelector('.contact-card.whatsapp');
-    if (waContact) {
-        waContact.addEventListener('mouseenter', () => createParticles(waContact, 'whatsapp', 6));
-    }
-
     const vaxContact = document.querySelector('.contact-card.vax-contact');
     if (vaxContact) {
         vaxContact.addEventListener('mouseenter', () => createParticles(vaxContact, 'vax', 6));
+    }
+
+    // 2.5 Mobile Navigation Toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+
+    if (mobileToggle && navbar) {
+        mobileToggle.addEventListener('click', () => {
+            navbar.classList.toggle('nav-active');
+            // Prevent scrolling when menu is open
+            if (navbar.classList.contains('nav-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
     }
 
     // 3. Magnetic Button Effect
@@ -263,19 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4.5. 3D interaction for title
-    const premiumTitle = document.querySelector('.premium-title');
-    if (premiumTitle) {
-        window.addEventListener('mousemove', (e) => {
-            const rect = premiumTitle.getBoundingClientRect();
-            // Check if mouse is in hero section roughly
-            if (e.clientY < window.innerHeight) {
-                const x = (e.clientX - window.innerWidth / 2) / 40;
-                const y = (e.clientY - window.innerHeight / 2) / 40;
-                premiumTitle.style.transform = `translate3d(${x}px, ${y}px, 0) rotateX(${-y / 2}deg) rotateY(${x / 2}deg)`;
-            }
-        });
-    }
+
 
     // 5. Interactive Canvas (Reactive Constellations)
     const canvas = document.getElementById('heroCanvas');
