@@ -17,108 +17,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(21, 32, 15, 0.95)';
-            navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            navbar.style.boxShadow = '0 15px 40px rgba(0,0,0,0.2)';
+            navbar.style.border = '1px solid rgba(255, 255, 255, 0.2)';
         } else {
-            navbar.style.background = 'rgba(21, 32, 15, 0.85)';
-            navbar.style.boxShadow = 'none';
+            navbar.style.background = 'rgba(255, 255, 255, 0.05)';
+            navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+            navbar.style.border = '1px solid rgba(255, 255, 255, 0.1)';
         }
     });
-
-    // Portfolio Accordion & Marquee Logic
-    const portfolioGridWrapper = document.querySelector('.portfolio-grid-wrapper');
-    const oldFilter = document.querySelector('.portfolio-header');
     
-    if (portfolioGridWrapper) {
-        const cards = Array.from(document.querySelectorAll('.portfolio-card'));
-        
-        // Revert filter header to regular header if it exists
-        if (oldFilter) {
-            oldFilter.outerHTML = '<h2 class="section-title" style="color: #1F291B;">Готовые кейсы и отзывы</h2>';
-        } else {
-            const h2 = document.querySelector('#portfolio .section-title');
-            if(h2) h2.style.color = '#1F291B'; // Ensure not white
-        }
+    // Hero Interactive Background
+    const heroSection = document.getElementById('hero');
+    const bgHouses = document.querySelector('.hero-bg-houses');
+    const bgCommercial = document.querySelector('.hero-bg-commercial');
 
-        const accordionContainer = document.createElement('div');
-        accordionContainer.className = 'portfolio-accordion';
-        
-        const categories = [
-            { id: 'residential', title: 'Частные дома', cards: [] },
-            { id: 'commercial', title: 'Коммерческая недвижимость', cards: [] }
-        ];
-        
-        cards.forEach((card, index) => {
-            const i = index + 1;
-            // Residential: 1, 3, 5, 7, 9
-            if ([1, 3, 5, 7, 9].includes(i)) {
-                categories[0].cards.push(card);
-            } 
-            // Commercial: 2, 4, 6, 8, 10
-            else if ([2, 4, 6, 8, 10].includes(i)) {
-                categories[1].cards.push(card);
+    if (heroSection && bgHouses && bgCommercial) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const width = window.innerWidth;
+            const mouseX = e.clientX;
+            
+            // If mouse is on right half, show commercial, else show houses
+            if(mouseX > width / 2) {
+                bgCommercial.style.opacity = '1';
+                bgHouses.style.opacity = '0';
+            } else {
+                bgCommercial.style.opacity = '0';
+                bgHouses.style.opacity = '1';
             }
         });
-        
-        categories.forEach((cat, index) => {
-            const item = document.createElement('div');
-            item.className = `accordion-item ${index === 0 ? 'active' : ''}`;
-            
-            const header = document.createElement('button');
-            header.className = 'accordion-header';
-            header.innerHTML = `<h3>${cat.title}</h3><span class="accordion-icon">+</span>`;
-            
-            const body = document.createElement('div');
-            body.className = 'accordion-body';
-            
-            const gridInner = document.createElement('div');
-            gridInner.className = 'portfolio-grid-inner';
-            
-            cat.cards.forEach(card => {
-                // Ensure card is visible and styled properly
-                card.classList.remove('hidden');
-                card.style.flex = ''; // Let CSS handle layout
-                card.style.minWidth = '';
-                gridInner.appendChild(card);
-            });
-            body.appendChild(gridInner);
-            item.appendChild(header);
-            item.appendChild(body);
-            accordionContainer.appendChild(item);
-            
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
-            });
-        });
-        
-        let marqueeCardsHTML = '';
-        cards.forEach(card => {
-            let reviewText = card.dataset.review;
-            const projectTitle = card.querySelector('h3')?.innerText;
-            
-            if (reviewText && projectTitle) {
-                reviewText = reviewText.replace(/^«|»$/g, '').trim();
-                marqueeCardsHTML += `
-                    <div class="marquee-review-card">
-                        <p class="review-text" style="color: #333;">«${reviewText}»</p>
-                        <div class="review-author" style="color: #CF9E36;">— ${projectTitle}</div>
-                    </div>
-                `;
-            }
-        });
-
-        const trackParent = document.getElementById('marqueeTrack')?.parentNode; // save track div
-        // Wipe wrapper and inject accordion
-        portfolioGridWrapper.innerHTML = '';
-        portfolioGridWrapper.appendChild(accordionContainer);
-        
-        const marqueeTrack = document.getElementById('marqueeTrack');
-        if (marqueeTrack && marqueeCardsHTML) {
-            marqueeTrack.innerHTML = marqueeCardsHTML + marqueeCardsHTML;
-        }
     }
+
+    // Portfolio Filter Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tabBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            portfolioCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
 
     // Intersection Observer for scroll animations (fade in / slide up)
     const observerOptions = {
@@ -172,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const rect = element.getBoundingClientRect();
         // В цвет слоновой кости (ivory) или второстепенного (secondary)
-        const colors = ['var(--bg-ivory)', 'var(--secondary-color)'];
+        let colors = ['var(--bg-ivory)', 'var(--secondary-color)'];
+        if (type === 'vax') colors = ['#8e44ad', '#9b59b6', '#dcdde1'];
 
         for (let i = 0; i < count; i++) {
             const particle = document.createElement('div');
@@ -210,10 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 particle.style.width = '18px';
                 particle.style.height = '18px';
                 particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>`;
-            } else if (type === 'whatsapp') {
-                particle.style.width = '18px';
-                particle.style.height = '18px';
-                particle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>`;
+            } else if (type === 'vax') {
+                particle.style.width = '16px';
+                particle.style.height = '16px';
+                particle.innerHTML = `<span style="font-size: 14px; font-weight: bold;">M</span>`;
             }
 
             // Must be relatively positioned element to contain the absolute particles
@@ -251,9 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tgContact.addEventListener('mouseenter', () => createParticles(tgContact, 'telegram', 6));
     }
 
-    const waContact = document.querySelector('.contact-card.whatsapp');
-    if (waContact) {
-        waContact.addEventListener('mouseenter', () => createParticles(waContact, 'whatsapp', 6));
+    const vaxContact = document.querySelector('.contact-card.vax-contact');
+    if (vaxContact) {
+        vaxContact.addEventListener('mouseenter', () => createParticles(vaxContact, 'vax', 6));
     }
 
     // 3. Magnetic Button Effect
@@ -280,15 +232,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Parallax Effect for Backgrounds
-    const heroImage = document.querySelector('.hero-bg-image');
+    const heroImages = document.querySelectorAll('.hero-bg-image');
     const processBg = document.querySelector('#process');
 
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
 
         // Hero parallax - smoother 
-        if (heroImage && scrolled < window.innerHeight) {
-            heroImage.style.transform = `translate3d(0, ${scrolled * 0.4}px, 0)`;
+        if (heroImages.length > 0 && scrolled < window.innerHeight) {
+            heroImages.forEach(img => {
+                img.style.transform = `translate3d(0, ${scrolled * 0.4}px, 0)`;
+            });
         }
 
         // Process parallax 

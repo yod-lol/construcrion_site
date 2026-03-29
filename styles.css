@@ -14,8 +14,8 @@
     --text-main: #2A2A2A;
     --text-muted: #555555;
     --text-light: #F7F5EE;
-    --font-heading: 'Montserrat', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Mono', monospace;
+    --font-body: 'Space Mono', monospace;
     --transition-standard: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -117,19 +117,24 @@ a {
 
 .navbar {
     position: fixed;
-    top: 0;
-    width: 100%;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    background: rgba(47, 59, 26, 0.85);
-    /* Тёмно-оливковый с прозрачностью */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
     color: var(--text-light);
     z-index: 1000;
     transition: var(--transition-standard);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .logo {
@@ -147,7 +152,7 @@ a {
 
 .navbar nav a {
     font-weight: 500;
-    font-size: 15px;
+    font-size: 18px;
     transition: var(--transition-standard);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -160,8 +165,8 @@ a {
 .cta-nav {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    padding: 10px 25px;
-    border-radius: 30px;
+    padding: 12px 30px;
+    border-radius: 50px;
     font-weight: 700;
     transition: var(--transition-standard);
 }
@@ -189,12 +194,11 @@ a {
     top: 0;
     left: -5%;
     width: 110%;
-    /* slightly larger for parallax */
     height: 110%;
     background-size: cover;
     background-position: center;
     z-index: 1;
-    transition: transform 0.1s linear;
+    transition: opacity 0.5s ease-in-out, transform 0.1s linear;
 }
 
 .hero-overlay {
@@ -272,35 +276,45 @@ a {
     margin-top: auto;
 }
 
-.hero-glass-stats {
+.hero-stats-wrapper {
     position: relative;
     z-index: 6;
     width: 90%;
     max-width: 1000px;
     margin: 40px auto; /* More spacing from actions and bottom */
-    border-radius: 20px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 30px 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
 }
 
+.glass-card-item {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-card-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
 @media (max-width: 768px) {
-    .hero-glass-stats {
-        padding: 20px 10px;
+    .hero-stats-wrapper {
         width: 100%;
         margin: 20px auto;
     }
+    .glass-card-item {
+        padding: 15px 20px;
+    }
 }
 
-.hero-glass-stats .modern-achievements {
+.hero-stats-wrapper .modern-achievements {
     justify-content: space-evenly;
-    gap: 0;
+    gap: 20px;
 }
 
 .hero-glass-stats .achievement-item {
@@ -331,11 +345,11 @@ a {
 }
 
 .modern-title {
-    font-size: 4.5rem;
+    font-size: 6rem;
     line-height: 1.1;
     margin-bottom: 30px;
     font-weight: 800;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
 }
 
 .modern-title .italic {
@@ -708,25 +722,68 @@ a {
 }
 
 .card-review {
-    background: var(--bg-alt);
-    padding: 15px 15px 15px 35px;
+    background: rgba(212, 163, 115, 0.05);
+    padding: 15px;
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     position: relative;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-main);
-    font-style: italic;
-    border-left: 3px solid var(--primary-color);
+    line-height: 1.4;
+    border-left: 2px solid var(--primary-color);
 }
 
 .card-review .quote-icon {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
     position: absolute;
-    top: 5px;
-    left: 8px;
-    line-height: 1;
+    top: -5px;
+    left: 5px;
+    opacity: 0.3;
     font-family: serif;
+}
+
+.card-review p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Portfolio Tabs */
+.portfolio-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
+}
+
+.portfolio-card.hidden {
+    display: none;
 }
 
 .card-footer {
@@ -887,13 +944,21 @@ a {
     padding: 40px 30px;
     border-radius: 20px;
     width: calc(33.333% - 20px);
-    flex-grow: 0;
+    flex-grow: 1;
+    max-width: calc(33.333% - 20px);
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-light);
     transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
     transform-style: preserve-3d;
     position: relative;
+}
+
+.guarantee-card.accent-card {
+    width: calc(50% - 20px);
+    max-width: calc(50% - 20px);
+    background: rgba(207, 158, 54, 0.1);
+    border-color: rgba(207, 158, 54, 0.3);
 }
 
 .guarantee-card::before {
@@ -1122,6 +1187,26 @@ a {
     background: var(--bg-ivory);
     position: relative;
     overflow: hidden;
+}
+
+.section-inactive {
+    filter: grayscale(1) !important;
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.status-badge {
+    display: inline-block;
+    font-size: 0.4em;
+    vertical-align: middle;
+    background: #666;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .referral::before {
@@ -1438,10 +1523,10 @@ footer {
     box-shadow: 0 15px 30px rgba(0, 136, 204, 0.2);
 }
 
-.contact-card.whatsapp:hover {
-    background: rgba(37, 211, 102, 0.2);
-    border-color: #25D366;
-    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
+.contact-card.vax-contact:hover {
+    background: rgba(142, 68, 173, 0.2);
+    border-color: #9b59b6;
+    box-shadow: 0 15px 30px rgba(155, 89, 182, 0.3);
 }
 
 footer {
@@ -1536,21 +1621,19 @@ footer p:hover {
     /* Process */
     .process-grid {
         display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        flex-direction: column;
         gap: 20px;
-        padding-bottom: 20px;
-        scrollbar-width: none;
-    }
-    
-    .process-grid::-webkit-scrollbar {
-        display: none;
     }
     
     .process-step {
-        flex: 0 0 70%;
-        scroll-snap-align: start;
+        width: 100%;
+        padding: 30px 20px 30px 80px;
+    }
+
+    .step-num {
+        left: 20px;
+        top: 25px;
+        font-size: 1.5rem;
     }
 
     /* Guarantees */

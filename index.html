@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Строительство домов и коммерческих помещений под ключ</title>
     <link rel="stylesheet" href="styles.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;800&family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
     <!-- Top Navigation -->
     <header class="navbar">
-        <div class="logo">AstroBuild</div>
+        <div class="logo"></div>
         <nav>
             <a href="#hero">Главная</a>
             <a href="#portfolio">Кейсы и отзывы</a>
@@ -27,8 +26,11 @@
 
     <!-- Block 1: Hero Section -->
     <section id="hero" class="hero premium-hero">
-        <div class="hero-bg-image"
+        <div class="hero-bg-image hero-bg-houses"
             style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop');">
+        </div>
+        <div class="hero-bg-image hero-bg-commercial"
+            style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2075&auto=format&fit=crop'); opacity: 0;">
         </div>
         <div class="hero-overlay"></div>
         <canvas id="heroCanvas"></canvas>
@@ -37,9 +39,9 @@
             <div class="hero-top-area">
                 <div class="subtitle-badge">Надежно, современно, уютно</div>
                 <h1 class="modern-title" style="width: 100%; text-align: left;">
-                    <span class="reveal-text">Строим <span class="accent-font">дома</span> и</span><br>
-                    <span class="reveal-text accent-font">коммерческие помещения</span><br>
-                    <span class="reveal-text"><span class="accent-font">любого</span> масштаба</span>
+                    <span class="reveal-text">Строим дома и</span><br>
+                    <span class="reveal-text">коммерческие помещения</span><br>
+                    <span class="reveal-text">любого масштаба</span>
                 </h1>
             </div>
 
@@ -56,20 +58,18 @@
                     </a>
                 </div>
 
-                <div class="hero-glass-stats">
+                <div class="hero-stats-wrapper">
                     <div class="achievements modern-achievements">
-                        <div class="achievement-item">
+                        <div class="achievement-item glass-card-item">
                             <div class="number-wrapper"><span class="number">20</span></div>
                             <span class="text">лет на рынке</span>
                         </div>
-                        <div class="achievement-divider"></div>
-                        <div class="achievement-item">
+                        <div class="achievement-item glass-card-item">
                             <div class="number-wrapper"><span class="number">54</span></div>
                             <span class="text">объектов сдано</span>
                         </div>
-                        <div class="achievement-divider"></div>
-                        <div class="achievement-item">
-                            <div class="number-wrapper"><span class="number">5</span><span class="suffix"> лет</span>
+                        <div class="achievement-item glass-card-item">
+                            <div class="number-wrapper"><span class="number">10</span><span class="suffix"> мес.</span>
                             </div>
                             <span class="text">средний срок</span>
                         </div>
@@ -85,10 +85,15 @@
     <section id="portfolio" class="portfolio section-padding">
         <div class="container">
             <h2 class="section-title" style="color: #1F291B;">Готовые кейсы и отзывы</h2>
+            <div class="portfolio-tabs">
+                <button class="tab-btn active" data-filter="all">Все проекты</button>
+                <button class="tab-btn" data-filter="house">Частные дома</button>
+                <button class="tab-btn" data-filter="commercial">Коммерция</button>
+            </div>
             <div class="portfolio-grid-wrapper">
                 <div class="portfolio-grid" id="portfolioGrid">
                     <!-- Case 1 -->
-                    <div class="portfolio-card" data-review="Стильный и теплый дом, живем круглый год. Отличная работа!">
+                    <div class="portfolio-card" data-category="house">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1000"
                                 alt="Барнхаус" loading="lazy">
@@ -108,13 +113,17 @@
                                 <div class="spec-item"><span class="s-icon">🛏️</span><span class="s-val">3</span><span
                                         class="s-label">Спальни</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Стильный и теплый дом, живем круглый год. Отличная работа!</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">6 200 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 2 -->
-                    <div class="portfolio-card" data-review="Построено точно в срок, гости в восторге от интерьера и света.">
+                    <div class="portfolio-card" data-category="commercial">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1000"
                                 alt="Ресторан" loading="lazy">
@@ -134,13 +143,17 @@
                                 <div class="spec-item"><span class="s-icon">🏢</span><span class="s-val">2</span><span
                                         class="s-label">Этажа</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Построено точно в срок, гости в восторге от интерьера и света.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">45 000 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 3 -->
-                    <div class="portfolio-card" data-review="Настоящая надежная крепость для большой семьи. Спасибо за качество!">
+                    <div class="portfolio-card" data-category="house">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000"
                                 alt="Кирпичный дом" loading="lazy">
@@ -160,13 +173,17 @@
                                 <div class="spec-item"><span class="s-icon">🛏️</span><span class="s-val">4</span><span
                                         class="s-label">Спальни</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Настоящая надежная крепость для большой семьи. Спасибо за качество!</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">18 500 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 4 -->
-                    <div class="portfolio-card" data-review="Удобная планировка, отличная инсоляция помещений. Арендаторы довольны.">
+                    <div class="portfolio-card" data-category="commercial">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000"
                                 alt="Бизнес-центр" loading="lazy">
@@ -186,13 +203,17 @@
                                 <div class="spec-item"><span class="s-icon">💼</span><span
                                         class="s-val">Офисы</span><span class="s-label">Тип</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Удобная планировка, отличная инсоляция помещений. Арендаторы довольны.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">60 000 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 5 -->
-                    <div class="portfolio-card" data-review="Идеальный дом для сдачи. Компактный, стильный, быстро окупился.">
+                    <div class="portfolio-card" data-category="house">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1000"
                                 alt="А-фрейм" loading="lazy">
@@ -212,13 +233,17 @@
                                 <div class="spec-item"><span class="s-icon">🛏️</span><span class="s-val">2</span><span
                                         class="s-label">Спальни</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Идеальный дом для сдачи. Компактный, стильный, быстро окупился.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">3 800 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 6 -->
-                    <div class="portfolio-card" data-review="Проект сдан раньше срока. Отличное и практичное коммерческое здание.">
+                    <div class="portfolio-card" data-category="commercial">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000"
                                 alt="Торговый павильон" loading="lazy">
@@ -238,13 +263,17 @@
                                 <div class="spec-item"><span class="s-icon">🛒</span><span
                                         class="s-val">Ритейл</span><span class="s-label">Тип</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Проект сдан раньше срока. Отличное и практичное коммерческое здание.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">8 500 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 7 -->
-                    <div class="portfolio-card" data-review="Дом нашей мечты! Очень теплый, светлый и комфортный. Ребята молодцы.">
+                    <div class="portfolio-card" data-category="house">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1000"
                                 alt="Дом из керамоблока" loading="lazy">
@@ -264,13 +293,17 @@
                                 <div class="spec-item"><span class="s-icon">🛏️</span><span class="s-val">3</span><span
                                         class="s-label">Спальни</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Дом нашей мечты! Очень теплый, светлый и комфортный. Ребята молодцы.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">14 200 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 8 -->
-                    <div class="portfolio-card" data-review="Качественно выполнены промышленные полы и инженерия. Никаких проблем с приемкой.">
+                    <div class="portfolio-card" data-category="commercial">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1586528116311-ad8ed7cde8a5?q=80&w=1000"
                                 alt="Складской комплекс" loading="lazy">
@@ -290,13 +323,17 @@
                                 <div class="spec-item"><span class="s-icon">📦</span><span
                                         class="s-val">Склад</span><span class="s-label">Тип</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Качественно выполнены промышленные полы и инженерия. Никаких проблем с приемкой.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">55 000 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 9 -->
-                    <div class="portfolio-card" data-review="Нестандартная архитектура и плоская кровля воплощены безупречно.">
+                    <div class="portfolio-card" data-category="house">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1000"
                                 alt="Хай-тек вилла" loading="lazy">
@@ -316,13 +353,17 @@
                                 <div class="spec-item"><span class="s-icon">🏊‍♂️</span><span
                                         class="s-val">Бассейн</span><span class="s-label">Опция</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Нестандартная архитектура и плоская кровля воплощены безупречно.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">42 000 000 ₽</p>
                             </div>
                         </div>
                     </div>
                     <!-- Case 10 -->
-                    <div class="portfolio-card" data-review="Соблюдены все ГОСТы и строгие инженерные требования для медучреждений.">
+                    <div class="portfolio-card" data-category="commercial">
                         <div class="card-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000"
                                 alt="Медицинская клиника" loading="lazy">
@@ -342,6 +383,10 @@
                                 <div class="spec-item"><span class="s-icon">🏥</span><span
                                         class="s-val">Мед.</span><span class="s-label">Тип</span></div>
                             </div>
+                            <div class="card-review">
+                                <span class="quote-icon">“</span>
+                                <p>Соблюдены все ГОСТы и строгие инженерные требования для медучреждений.</p>
+                            </div>
                             <div class="card-footer">
                                 <p class="price">25 000 000 ₽</p>
                             </div>
@@ -351,12 +396,7 @@
                 <div class="scroll-hint">Листайте в сторону <span>→</span></div>
             </div>
 
-            <!-- Infinite Reviews Marquee -->
-            <div class="reviews-marquee-container">
-                <div class="marquee-track" id="marqueeTrack">
-                    <!-- Cards will be populated and cloned by JS from portfolio cards -->
-                </div>
-            </div>
+
         </div>
     </section>
 
@@ -409,6 +449,17 @@
         <div class="container relative-content">
             <h2 class="section-title">Работа по договору:</h2>
             <div class="guarantee-grid">
+                <div class="guarantee-card accent-card interactive-card">
+                    <span class="g-icon">⏱️</span>
+                    <h3>Ответственность за сроки</h3>
+                    <p>Строго соблюдаем график, прописанный в договоре.</p>
+                </div>
+                <div class="guarantee-card accent-card interactive-card">
+                    <span class="g-icon">👷‍♂️</span>
+                    <h3>Профессионализм</h3>
+                    <p>Только квалифицированные инженеры, архитекторы и узкопрофильные сертифицированные бригады с
+                        многолетним опытом.</p>
+                </div>
                 <div class="guarantee-card interactive-card">
                     <span class="g-icon">💳</span>
                     <h3>Оплата по этапам</h3>
@@ -425,17 +476,6 @@
                     <h3>Гарантия после сдачи</h3>
                     <p>Предоставляем официальную гарантию на фундамент, стены, кровлю и инженерные сети.</p>
                 </div>
-                <div class="guarantee-card accent-card interactive-card">
-                    <span class="g-icon">⏱️</span>
-                    <h3>Ответственность за сроки</h3>
-                    <p>Строго соблюдаем график, прописанный в договоре.</p>
-                </div>
-                <div class="guarantee-card accent-card interactive-card">
-                    <span class="g-icon">👷‍♂️</span>
-                    <h3>Профессионализм</h3>
-                    <p>Только квалифицированные инженеры, архитекторы и узкопрофильные сертифицированные бригады с
-                        многолетним опытом.</p>
-                </div>
             </div>
         </div>
     </section>
@@ -443,12 +483,11 @@
 
 
     <!-- Referral & Bonus -->
-    <section id="referral" class="referral section-padding">
+    <section id="referral" class="referral section-padding section-inactive">
         <div class="container flex-container">
             <div class="referral-content">
-                <h2>Реферальная программа и Бонусы 🎁</h2>
-                <p>Рекомендуйте нас друзьям и получайте кэшбек или приятные подарки для вашего нового дома. Строиться с
-                    нами выгодно!</p>
+                <h2>Реферальная программа <span class="status-badge">Временно недоступна</span></h2>
+                <p>Рекомендуйте нас друзьям и знакомым и получайте ценные подарки за каждую успешную рекомендацию!</p>
                 <ul class="bonus-list">
                     <li>✔️ Приведите друга — получите <strong>до 200 000 ₽</strong> после подписания ими договора.</li>
                     <li>✔️ При заказе дома под ключ — <strong>проект в подарок</strong>.</li>
@@ -456,10 +495,12 @@
                 </ul>
             </div>
             <div class="referral-image">
-                <div class="glass-card">
-                    <h3>Ваш Бонус</h3>
+                <div class="glass-card bonus-inactive"
+                    style="filter: grayscale(1); opacity: 0.6; pointer-events: none;">
+                    <h3>Ваш Бонус <span style="font-size: 0.8em; color: gray;">(временно недоступен)</span></h3>
                     <p>Оставьте заявку сегодня и забронируйте бесплатный выезд инженера и смету.</p>
-                    <a href="#contacts" class="btn-primary">Забрать бонус</a>
+                    <a href="#contacts" class="btn-primary"
+                        style="background: #ccc; border-color: #ccc; color: #666;">Забрать бонус</a>
                 </div>
             </div>
         </div>
@@ -485,9 +526,9 @@
                     <span class="info">Telegram</span>
                     <div class="btn-fill"></div>
                 </a>
-                <a href="https://wa.me/79991234567" target="_blank" class="contact-card whatsapp btn-magnetic">
+                <a href="#" target="_blank" class="contact-card vax-contact btn-magnetic">
                     <span class="icon">💬</span>
-                    <span class="info">WhatsApp</span>
+                    <span class="info">MAX</span>
                     <div class="btn-fill"></div>
                 </a>
             </div>
